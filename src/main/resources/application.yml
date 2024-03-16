@@ -1,0 +1,7 @@
+spring:
+    application:
+        name: hotel_management
+    datasource:
+        url: jdbc:mysql://localhost:3306/hotel_management
+        username: gfl
+        password: 123
