@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Guests</title>
+    <title>Reservations</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/dist/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}">
 </head>
@@ -12,21 +11,21 @@
     <thead class="table-header table-info">
     <tr>
         <th>№</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Passport Info</th>
-        <th>Contact Number</th>
+        <th>Guest</th>
+        <th>Room</th>
+        <th>Start Date</th>
+        <th>End Date</th>
         <th>Edit</th>
         <th>Delete</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="g: ${guests}">
-        <td th:text="${g.id}"></td>
-        <td th:text="${g.firstName}"></td>
-        <td th:text="${g.lastName}"></td>
-        <td th:text="${g.passportInfo}"></td>
-        <td th:text="${g.contactNumber}"></td>
+    <tr th:each="r: ${reservations}">
+        <td th:text="${r.id}"></td>
+        <td th:text="${r.guest}"></td>
+        <td th:text="${r.room}"></td>
+        <td th:text="${r.startDate}"></td>
+        <td th:text="${r.endDate}"></td>
         <td><i class="bi bi-pencil"></i></td>
         <td><i class="bi bi-trash"></i></td>
         <td></td>
