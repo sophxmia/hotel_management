@@ -10,7 +10,7 @@
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="./index.html">Hotel Management System</a>
+        <a class="navbar-brand" href="/guests">Hotel Management System</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -38,7 +38,8 @@
         <thead class="table-header table-info">
         <tr>
             <th>№</th>
-            <th>Reservation</th>
+            <th>Reservation Name</th>
+            <th>Reservation Room</th>
             <th>Amount</th>
             <th>Issue Date</th>
             <th>Edit</th>
@@ -48,7 +49,8 @@
         <tbody>
         <tr th:each="i: ${invoices}">
             <td th:text="${i.id}"></td>
-            <td th:text="${i.reservation}"></td>
+            <td th:text="${i.reservation.guest.firstName}"></td>
+            <td th:text="${i.reservation.room.roomClass}"></td>
             <td th:text="${i.amount}"></td>
             <td th:text="${i.issueDate}"></td>
             <td><i class="bi bi-pencil"></i></td>

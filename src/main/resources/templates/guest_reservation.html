@@ -27,7 +27,7 @@
         <tbody>
         <tr th:each="r: ${reservations}">
             <td th:text="${r.id}"></td>
-            <td th:text="${r.room}"></td>
+            <td th:text="${r.room.roomClass}"></td>
             <td th:text="${r.startDate}"></td>
             <td th:text="${r.endDate}"></td>
         </tr>
