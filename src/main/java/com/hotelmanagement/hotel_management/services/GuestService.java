@@ -11,7 +11,12 @@ import java.util.List;
 @AllArgsConstructor
 public class GuestService {
     private GuestRepository guestRepository;
+
     public List<Guest> getGuests() {
         return guestRepository.findAll();
+    }
+
+    public void add(String firstName, String lastName, String passportInfo, String contactNumber) {
+        guestRepository.save(new Guest(firstName, lastName, passportInfo, contactNumber));
     }
 }

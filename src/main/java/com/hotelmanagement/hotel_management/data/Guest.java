@@ -2,6 +2,7 @@ package com.hotelmanagement.hotel_management.data;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.LinkedHashSet;
@@ -10,6 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "guests")
 public class Guest {
     @Id
@@ -32,4 +34,10 @@ public class Guest {
     @OneToMany(mappedBy = "guest")
     private Set<Reservation> reservations = new LinkedHashSet<>();
 
+    public Guest(String firstName, String lastName, String passportInfo, String contactNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.passportInfo = passportInfo;
+        this.contactNumber = contactNumber;
+    }
 }

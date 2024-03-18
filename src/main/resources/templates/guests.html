@@ -8,6 +8,17 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}">
 </head>
 <body>
+<form method="post" action="/guests/add">
+    <label for="firstName">First Name</label>
+    <input id="firstName" type="text" name="firstName">
+    <label for="lastName">Last Name</label>
+    <input id="lastName" type="text" name="lastName">
+    <label for="passportInfo">Passport Info</label>
+    <input id="passportInfo" type="text" name="passportInfo">
+    <label for="contactNumber">Contact Number</label>
+    <input id="contactNumber" type="text" name="contactNumber">
+    <input type="submit" value="Add">
+</form>
 <table class="table table-sm type-striped table-bordered table-hover">
     <thead class="table-header table-info">
     <tr>
@@ -27,12 +38,50 @@
         <td th:text="${g.lastName}"></td>
         <td th:text="${g.passportInfo}"></td>
         <td th:text="${g.contactNumber}"></td>
-        <td><i class="bi bi-pencil"></i></td>
-        <td><i class="bi bi-trash"></i></td>
+        <td><a class="btn btn-sm btn-outline-success"><i class="bi bi-pencil"></i></a></td>
+        <td>
+            <a class="btn btn-sm btn-outline-danger" data-bs-target="#myconfirm" data-bs-toggle="modal"
+               th:attr="data-bs-link=@{/guests/delete(guest_id=${g.id})}, data-bs-text=${g.firstName + ' ' + g.lastName}, data-bs-id=${g.id}"><i
+                    class="bi bi-trash"></i></a>
+        </td>
         <td></td>
     </tr>
     </tbody>
 </table>
+<div class="modal fade" id="myconfirm" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="staticWarningLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticWarningLabel">Warning</h1>
+                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure want to delete <span id="guest-txt" class="span-txt">guest</span>?<br/>
+                If you click delete, this <i>cannot be undone</i>.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger delete-outline-button">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let myConfirmDialog = document.getElementById('myconfirm')
+    myConfirmDialog.addEventListener('show.bs.modal', function (event) {
+        let button = event.relatedTarget
+        let link = button.getAttribute('data-bs-link')
+        let cid = button.getAttribute('data-bs-id')
+        let text = button.getAttribute('data-bs-text')
+        let modalTitle = myConfirmDialog.querySelector('.modal-title')
+        modalTitle.textContent = 'Delete: ' + text + ' (' + cid + ')'
+        let deleteButton = myConfirmDialog.querySelector('.delete-button')
+        deleteButton.setAttribute('href', link)
+        let course = document.getElementById('guest-txt')
+        course.textContent = text
+    })
+</script>
 <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.js}"></script>
 </body>
 </html>
