@@ -8,46 +8,81 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}">
 </head>
 <body>
-<form method="post" action="/guests/add">
-    <label for="firstName">First Name</label>
-    <input id="firstName" type="text" name="firstName">
-    <label for="lastName">Last Name</label>
-    <input id="lastName" type="text" name="lastName">
-    <label for="passportInfo">Passport Info</label>
-    <input id="passportInfo" type="text" name="passportInfo">
-    <label for="contactNumber">Contact Number</label>
-    <input id="contactNumber" type="text" name="contactNumber">
-    <input type="submit" value="Add">
-</form>
-<table class="table table-sm type-striped table-bordered table-hover">
-    <thead class="table-header table-info">
-    <tr>
-        <th>№</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Passport Info</th>
-        <th>Contact Number</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="g: ${guests}">
-        <td th:text="${g.id}"></td>
-        <td th:text="${g.firstName}"></td>
-        <td th:text="${g.lastName}"></td>
-        <td th:text="${g.passportInfo}"></td>
-        <td th:text="${g.contactNumber}"></td>
-        <td><a class="btn btn-sm btn-outline-success"><i class="bi bi-pencil"></i></a></td>
-        <td>
-            <a class="btn btn-sm btn-outline-danger" data-bs-target="#myconfirm" data-bs-toggle="modal"
-               th:attr="data-bs-link=@{/guests/delete(guest_id=${g.id})}, data-bs-text=${g.firstName + ' ' + g.lastName}, data-bs-id=${g.id}"><i
-                    class="bi bi-trash"></i></a>
-        </td>
-        <td></td>
-    </tr>
-    </tbody>
-</table>
+<div class="container">
+    <form method="post" action="/guests/add">
+        <div class="row">
+            <div class="col-2">
+                <div class="form-floating">
+                    <input id="firstName" type="text" name="firstName"
+                           class="form-control" placeholder="First Name">
+                    <label for="firstName">First Name</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-floating">
+                    <input id="lastName" type="text" name="lastName" placeholder="Last Name" class="form-control">
+                    <label for="lastName">Last Name</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-floating">
+                    <input id="passportInfo" type="text" name="passportInfo" placeholder="Passport Number"
+                           class="form-control">
+                    <label for="passportInfo">Passport Info</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-floating">
+                    <input id="contactNumber" type="text" name="contactNumber" placeholder="Contact Number"
+                           class="form-control">
+                    <label for="contactNumber">Contact Number</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-floating">
+                    <input type="submit" value="Add" class="btn btn-outline-secondary">
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <table class="table table-sm type-striped table-bordered table-hover">
+        <thead class="table-header table-info">
+        <tr>
+            <th>№</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Passport Info</th>
+            <th>Contact Number</th>
+            <th>Reservations</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="g: ${guests}">
+            <td th:text="${g.id}"></td>
+            <td th:text="${g.firstName}"></td>
+            <td th:text="${g.lastName}"></td>
+            <td th:text="${g.passportInfo}"></td>
+            <td th:text="${g.contactNumber}"></td>
+            <td>
+                <a href="#" class="btn btn-sm btn-outline-info">
+                    <i class="bi bi-building-fill-check"></i>
+                </a>
+            </td>
+            <td><a th:href="@{/guests/edit(guest_id=${g.id})}" data-bs-target="#editConfirm" data-bs-toggle="modal"
+                   class="btn btn-sm btn-outline-success" th:attr="data-bs-text=${g.firstName + ' ' + g.lastName}, data-bs-id=${g.id}"><i
+                    class="bi bi-pencil"></i></a></td>
+            <td>
+                <a class="btn btn-sm btn-outline-danger" data-bs-target="#myconfirm" data-bs-toggle="modal"
+                   th:attr="data-bs-link=@{/guests/delete(guest_id=${g.id})}, data-bs-text=${g.firstName + ' ' + g.lastName}, data-bs-id=${g.id}"><i
+                        class="bi bi-trash"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 <div class="modal fade" id="myconfirm" data-bs-backdrop="static" data-bs-keyboard="false"
      tabindex="-1" aria-labelledby="staticWarningLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -67,6 +102,24 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="editConfirm" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="editConfirmLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editConfirmLabel">Confirmation</h1>
+                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure want to edit this guest?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-outline-success confirm-edit-button">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     let myConfirmDialog = document.getElementById('myconfirm')
     myConfirmDialog.addEventListener('show.bs.modal', function (event) {
@@ -81,6 +134,17 @@
         let course = document.getElementById('guest-txt')
         course.textContent = text
     })
+</script>
+<script>
+    let editConfirmDialog = document.getElementById('editConfirm');
+    editConfirmDialog.addEventListener('show.bs.modal', function (event) {
+        let button = event.relatedTarget;
+        let link = button.getAttribute('data-bs-link');
+        let gid = button.getAttribute('data-bs-id');
+        let text = button.getAttribute('data-bs-text');
+        let modalTitle = editConfirmDialog.querySelector('.modal-title');
+        modalTitle.textContent = 'Edit: ' + text + ' (' + gid + ')';
+    });
 </script>
 <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.js}"></script>
 </body>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Rooms</title>
@@ -7,29 +8,30 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}">
 </head>
 <body>
-<table class="table table-sm type-striped table-bordered table-hover">
-    <thead class="table-header table-info">
-    <tr>
-        <th>№</th>
-        <th>Room Class</th>
-        <th>Capacity</th>
-        <th>Status</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="ro: ${rooms}">
-        <td th:text="${ro.id}"></td>
-        <td th:text="${ro.roomClass}"></td>
-        <td th:text="${ro.capacity}"></td>
-        <td th:text="${ro.status}"></td>
-        <td><i class="bi bi-pencil"></i></td>
-        <td><i class="bi bi-trash"></i></td>
-        <td></td>
-    </tr>
-    </tbody>
-</table>
+<div class="container">
+    <table class="table table-sm type-striped table-bordered table-hover">
+        <thead class="table-header table-info">
+        <tr>
+            <th>№</th>
+            <th>Room Class</th>
+            <th>Capacity</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ro: ${rooms}">
+            <td th:text="${ro.id}"></td>
+            <td th:text="${ro.roomClass}"></td>
+            <td th:text="${ro.capacity}"></td>
+            <td th:text="${ro.status}"></td>
+            <td><i class="bi bi-pencil"></i></td>
+            <td><i class="bi bi-trash"></i></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.js}"></script>
 </body>
 </html>
