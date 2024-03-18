@@ -19,4 +19,8 @@ public class GuestService {
     public void add(String firstName, String lastName, String passportInfo, String contactNumber) {
         guestRepository.save(new Guest(firstName, lastName, passportInfo, contactNumber));
     }
+
+    public void delete(int id) {
+        guestRepository.deleteById(id);
+    }
 }

@@ -26,4 +26,9 @@ public class GuestController {
         guestService.add(firstName, lastName, passportInfo, contactNumber);
         return "redirect:/guests";
     }
+    @GetMapping("/delete")
+    public String delete(@RequestParam(name = "guest_id") int id){
+        guestService.delete(id);
+        return "redirect:/guests";
+    }
 }

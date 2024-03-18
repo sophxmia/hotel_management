@@ -62,7 +62,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                <a class="btn btn-danger delete-outline-button">Delete</a>
+                <a class="btn btn-outline-danger delete-button">Delete</a>
             </div>
         </div>
     </div>
@@ -72,10 +72,10 @@
     myConfirmDialog.addEventListener('show.bs.modal', function (event) {
         let button = event.relatedTarget
         let link = button.getAttribute('data-bs-link')
-        let cid = button.getAttribute('data-bs-id')
+        let gid = button.getAttribute('data-bs-id')
         let text = button.getAttribute('data-bs-text')
         let modalTitle = myConfirmDialog.querySelector('.modal-title')
-        modalTitle.textContent = 'Delete: ' + text + ' (' + cid + ')'
+        modalTitle.textContent = 'Delete: ' + text + ' (' + gid + ')'
         let deleteButton = myConfirmDialog.querySelector('.delete-button')
         deleteButton.setAttribute('href', link)
         let course = document.getElementById('guest-txt')
