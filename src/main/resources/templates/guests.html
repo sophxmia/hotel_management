@@ -8,8 +8,33 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}">
 </head>
 <body>
-<div class="container">
-    <form method="post" action="/guests/add">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="./index.html">Hotel Management System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/guests">Guests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reservations">Reservations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/rooms">Rooms</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/invoices">Invoices</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <form method="post" action="/guests/add" class="my-4">
         <div class="row">
             <div class="col-2">
                 <div class="form-floating">
@@ -44,7 +69,6 @@
                 </div>
             </div>
         </div>
-
     </form>
     <table class="table table-sm type-striped table-bordered table-hover">
         <thead class="table-header table-info">
@@ -67,12 +91,13 @@
             <td th:text="${g.passportInfo}"></td>
             <td th:text="${g.contactNumber}"></td>
             <td>
-                <a href="#" class="btn btn-sm btn-outline-info">
+                <a th:href="@{/reservations/guest/{guest_id}(guest_id=${g.id})}" class="btn btn-sm btn-outline-info">
                     <i class="bi bi-building-fill-check"></i>
                 </a>
             </td>
             <td><a th:href="@{/guests/edit(guest_id=${g.id})}" data-bs-target="#editConfirm" data-bs-toggle="modal"
-                   class="btn btn-sm btn-outline-success" th:attr="data-bs-text=${g.firstName + ' ' + g.lastName}, data-bs-id=${g.id}"><i
+                   class="btn btn-sm btn-outline-success"
+                   th:attr="data-bs-text=${g.firstName + ' ' + g.lastName}, data-bs-id=${g.id}"><i
                     class="bi bi-pencil"></i></a></td>
             <td>
                 <a class="btn btn-sm btn-outline-danger" data-bs-target="#myconfirm" data-bs-toggle="modal"
@@ -139,7 +164,7 @@
     let editConfirmDialog = document.getElementById('editConfirm');
     editConfirmDialog.addEventListener('show.bs.modal', function (event) {
         let button = event.relatedTarget;
-        let link = button.getAttribute('data-bs-link');
+        // let link = button.getAttribute('data-bs-link');
         let gid = button.getAttribute('data-bs-id');
         let text = button.getAttribute('data-bs-text');
         let modalTitle = editConfirmDialog.querySelector('.modal-title');

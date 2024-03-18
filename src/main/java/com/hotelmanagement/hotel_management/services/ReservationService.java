@@ -15,4 +15,8 @@ public class ReservationService {
     public List<Reservation> getReservations() {
         return reservationRepository.findAll();
     }
+
+    public List<Reservation> getReservationsForGuest(int guestId){
+        return reservationRepository.findByGuest_Id(guestId);
+    }
 }
