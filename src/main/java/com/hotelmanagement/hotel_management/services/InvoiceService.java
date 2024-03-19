@@ -15,4 +15,8 @@ public class InvoiceService {
     public List<Invoice> getInvoices() {
         return invoiceRepository.findAll();
     }
+
+    public Invoice getInvoiceById(Integer id) {
+        return invoiceRepository.findById(id).orElse(null);
+    }
 }
