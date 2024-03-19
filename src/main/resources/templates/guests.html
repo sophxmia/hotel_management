@@ -42,42 +42,59 @@
             </form>
         </div>
     </div>
-    <form method="post" action="/guests/add" class="my-4">
-        <div class="row">
-            <div class="col-md-2">
-                <div class="form-floating">
-                    <input id="firstName" type="text" name="firstName"
-                           class="form-control" placeholder="First Name">
-                    <label for="firstName">First Name</label>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-floating">
-                    <input id="lastName" type="text" name="lastName" placeholder="Last Name" class="form-control">
-                    <label for="lastName">Last Name</label>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-floating">
-                    <input id="passportInfo" type="text" name="passportInfo" placeholder="Passport Number"
-                           class="form-control">
-                    <label for="passportInfo">Passport Info</label>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-floating">
-                    <input id="contactNumber" type="text" name="contactNumber" placeholder="Contact Number"
-                           class="form-control">
-                    <label for="contactNumber">Contact Number</label>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-floating">
-                    <input type="submit" value="Add" class="btn btn-outline-secondary">
+    <div class="accordion my-4" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                    Add a new guest
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <form method="post" action="/guests/add" class="my-4">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input id="firstName" type="text" name="firstName"
+                                           class="form-control" placeholder="First Name">
+                                    <label for="firstName">First Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input id="lastName" type="text" name="lastName" placeholder="Last Name"
+                                           class="form-control">
+                                    <label for="lastName">Last Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input id="passportInfo" type="text" name="passportInfo"
+                                           placeholder="Passport Number"
+                                           class="form-control">
+                                    <label for="passportInfo">Passport Info</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input id="contactNumber" type="text" name="contactNumber"
+                                           placeholder="Contact Number"
+                                           class="form-control">
+                                    <label for="contactNumber">Contact Number</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input type="submit" value="Add" class="btn btn-outline-secondary">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
     <table class="table table-sm type-striped table-bordered table-hover">
         <thead class="table-header table-info">
         <tr>
