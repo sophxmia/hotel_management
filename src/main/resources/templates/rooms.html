@@ -34,6 +34,37 @@
     </div>
 </nav>
 <div class="container-fluid">
+    <form method="post" action="/rooms/add" class="my-4">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-floating">
+                    <input id="roomClass" type="text" name="roomClass"
+                           class="form-control" placeholder="Room Class">
+                    <label for="roomClass">Room Class</label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-floating">
+                    <input id="capacity" type="number" name="capacity" placeholder="Capacity" class="form-control">
+                    <label for="capacity">Capacity</label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-floating">
+                    <select id="status" name="status" class="form-select">
+                        <option value="Vacant">Vacant</option>
+                        <option value="Occupied">Occupied</option>
+                    </select>
+                    <label for="status">Status</label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-floating">
+                    <input type="submit" value="Add" class="btn btn-outline-secondary">
+                </div>
+            </div>
+        </div>
+    </form>
     <table class="table table-sm type-striped table-bordered table-hover">
         <thead class="table-header table-info">
         <tr>
