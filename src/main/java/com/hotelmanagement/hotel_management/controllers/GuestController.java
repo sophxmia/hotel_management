@@ -32,4 +32,11 @@ public class GuestController {
         guestService.delete(id);
         return "redirect:/guests";
     }
+
+    @GetMapping("/search")
+    public String search(@RequestParam(name = "query") String query, Model model) {
+        model.addAttribute("guests", guestService.searchGuests(query));
+        return "guests";
+    }
+
 }

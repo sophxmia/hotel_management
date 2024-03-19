@@ -34,6 +34,14 @@
     </div>
 </nav>
 <div class="container-fluid">
+    <div class="row my-4">
+        <div class="col-md-6">
+            <form method="get" action="/guests/search" class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
     <form method="post" action="/guests/add" class="my-4">
         <div class="row">
             <div class="col-md-2">

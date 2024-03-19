@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface GuestRepository extends JpaRepository<Guest, Integer> {
     List<GuestInfo> findByIdNotNull();
+    List<Guest> findByFirstNameContainingOrLastNameContainingOrPassportInfoContainingOrContactNumberContaining(String firstName, String lastName, String passportInfo, String contactNumber);
+
 }

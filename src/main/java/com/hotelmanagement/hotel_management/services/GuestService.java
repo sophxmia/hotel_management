@@ -23,4 +23,9 @@ public class GuestService {
     public void delete(int id) {
         guestRepository.deleteById(id);
     }
+
+    public List<Guest> searchGuests(String query) {
+        return guestRepository.findByFirstNameContainingOrLastNameContainingOrPassportInfoContainingOrContactNumberContaining(query, query, query, query);
+    }
+
 }
