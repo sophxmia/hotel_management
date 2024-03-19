@@ -33,6 +33,12 @@ public class GuestController {
         return "redirect:/guests";
     }
 
+    @PostMapping("/edit")
+    public String edit(@RequestParam int guestId, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String passportInfo, @RequestParam String contactNumber) {
+        guestService.edit(guestId, firstName, lastName, passportInfo, contactNumber);
+        return "redirect:/guests";
+    }
+
     @GetMapping("/search")
     public String search(@RequestParam(name = "query") String query, Model model) {
         model.addAttribute("guests", guestService.searchGuests(query));

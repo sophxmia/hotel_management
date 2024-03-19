@@ -24,6 +24,15 @@ public class GuestService {
         guestRepository.deleteById(id);
     }
 
+    public void edit(int guestId, String firstName, String lastName, String passportInfo, String contactNumber) {
+        Guest guest = guestRepository.findById(guestId).orElseThrow(() -> new IllegalArgumentException("Invalid guest Id: " + guestId));
+        guest.setFirstName(firstName);
+        guest.setLastName(lastName);
+        guest.setPassportInfo(passportInfo);
+        guest.setContactNumber(contactNumber);
+        guestRepository.save(guest);
+    }
+
     public List<Guest> searchGuests(String query) {
         return guestRepository.findByFirstNameContainingOrLastNameContainingOrPassportInfoContainingOrContactNumberContaining(query, query, query, query);
     }
