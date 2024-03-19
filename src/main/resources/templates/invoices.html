@@ -44,6 +44,7 @@
             <th>Issue Date</th>
             <th>Edit</th>
             <th>Delete</th>
+            <th>Print a Receipt</th>
         </tr>
         </thead>
         <tbody>
@@ -53,8 +54,13 @@
             <td th:text="${i.reservation.room.roomClass}"></td>
             <td th:text="${i.amount}"></td>
             <td th:text="${i.issueDate}"></td>
-            <td><i class="bi bi-pencil"></i></td>
-            <td><i class="bi bi-trash"></i></td>
+            <td><a class="btn btn-sm btn-outline-success"><i
+                    class="bi bi-pencil"></i></a></td>
+            <td>
+                <a class="btn btn-sm btn-outline-danger"><i
+                        class="bi bi-trash"></i></a>
+            </td>
+            <td><a class="btn btn-sm btn-outline-info"><i class="bi bi-file-earmark-pdf"></i></a></td>
         </tr>
         </tbody>
     </table>
