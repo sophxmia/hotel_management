@@ -16,7 +16,11 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
-    public List<Reservation> getReservationsForGuest(int guestId){
+    public List<Reservation> getReservationsForGuest(int guestId) {
         return reservationRepository.findByGuest_Id(guestId);
+    }
+
+    public void delete(int id) {
+        reservationRepository.deleteById(id);
     }
 }
