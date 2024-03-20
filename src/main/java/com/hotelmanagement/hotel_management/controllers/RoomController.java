@@ -25,4 +25,9 @@ public class RoomController {
         roomService.add(roomClass,capacity, status);
         return "redirect:/rooms";
     }
+    @GetMapping("/delete")
+    public String delete(@RequestParam(name = "room_id") int id){
+        roomService.delete(id);
+        return "redirect:/rooms";
+    }
 }

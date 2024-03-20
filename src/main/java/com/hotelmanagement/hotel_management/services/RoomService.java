@@ -15,7 +15,12 @@ public class RoomService {
     public List<Room> getRooms() {
         return roomRepository.findAll();
     }
-    public void add(String roomClass, Integer capacity, String status){
-        roomRepository.save(new Room(roomClass,capacity,status));
+
+    public void add(String roomClass, Integer capacity, String status) {
+        roomRepository.save(new Room(roomClass, capacity, status));
+    }
+
+    public void delete(int id) {
+        roomRepository.deleteById(id);
     }
 }
