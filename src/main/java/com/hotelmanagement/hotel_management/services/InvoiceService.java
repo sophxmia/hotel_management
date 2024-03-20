@@ -19,4 +19,8 @@ public class InvoiceService {
     public Invoice getInvoiceById(Integer id) {
         return invoiceRepository.findById(id).orElse(null);
     }
+
+    public void delete(int id) {
+        invoiceRepository.deleteById(id);
+    }
 }

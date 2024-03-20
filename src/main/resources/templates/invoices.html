@@ -57,7 +57,8 @@
             <td><a class="btn btn-sm btn-outline-success"><i
                     class="bi bi-pencil"></i></a></td>
             <td>
-                <a class="btn btn-sm btn-outline-danger"><i
+                <a class="btn btn-sm btn-outline-danger" data-bs-target="#myconfirm" data-bs-toggle="modal"
+                   th:attr="data-bs-link=@{/invoices/delete(invoice_id=${i.id})}, data-bs-text=${i.reservation.guest.firstName}, data-bs-id=${i.id}"><i
                         class="bi bi-trash"></i></a>
             </td>
             <td><a th:href="@{/invoices/{id}/generate-pdf(id=${i.id})}" class="btn btn-sm btn-outline-info"><i
@@ -66,6 +67,40 @@
         </tbody>
     </table>
 </div>
+<div class="modal fade" id="myconfirm" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="staticWarningLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticWarningLabel">Warning</h1>
+                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure want to delete <span id="invoice-txt" class="span-txt"></span>'s invoice ?<br/>
+                If you click delete, this <i>cannot be undone</i>.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a class="btn btn-outline-danger delete-button">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let myConfirmDialog = document.getElementById('myconfirm')
+    myConfirmDialog.addEventListener('show.bs.modal', function (event) {
+        let button = event.relatedTarget
+        let link = button.getAttribute('data-bs-link')
+        let gid = button.getAttribute('data-bs-id')
+        let text = button.getAttribute('data-bs-text')
+        let modalTitle = myConfirmDialog.querySelector('.modal-title')
+        modalTitle.textContent = 'Delete: ' + text + ' (' + gid + ')'
+        let deleteButton = myConfirmDialog.querySelector('.delete-button')
+        deleteButton.setAttribute('href', link)
+        let course = document.getElementById('invoice-txt')
+        course.textContent = text
+    })
+</script>
 <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.js}"></script>
 </body>
 </html>
