@@ -33,7 +33,22 @@
         </div>
     </div>
 </nav>
+<div class="alert alert-primary" role="alert">
+    <div>
+        <h4 class="alert-heading">Important information</h4>
+        <p>You can perform a search query here.</p>
+        <hr>
+        <p class="mb-0">Remember to use the following syntax to perform the date related search: <i>Search by Date
+            (YYYY-MM-DD)</i></p>
+    </div>
+</div>
 <div class="container-fluid">
+    <form th:action="@{/hotel/search}" method="get" class="col-md-3 my-3">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search" name="searchQuery">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+    </form>
     <table class="table table-sm type-striped table-bordered table-hover">
         <thead class="table-header table-info">
         <tr>
