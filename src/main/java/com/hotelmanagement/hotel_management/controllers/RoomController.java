@@ -30,4 +30,10 @@ public class RoomController {
         roomService.delete(id);
         return "redirect:/rooms";
     }
+    @PostMapping("/edit")
+    public String edit(@RequestParam int roomId, @RequestParam String roomClass,
+                             @RequestParam Integer capacity, @RequestParam String status) {
+        roomService.edit(roomId, roomClass, capacity, status);
+        return "redirect:/rooms";
+    }
 }

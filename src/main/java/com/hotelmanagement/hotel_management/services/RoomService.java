@@ -1,5 +1,6 @@
 package com.hotelmanagement.hotel_management.services;
 
+import com.hotelmanagement.hotel_management.data.Guest;
 import com.hotelmanagement.hotel_management.data.Room;
 import com.hotelmanagement.hotel_management.repositories.RoomRepository;
 import lombok.AllArgsConstructor;
@@ -22,5 +23,13 @@ public class RoomService {
 
     public void delete(int id) {
         roomRepository.deleteById(id);
+    }
+
+    public void edit(int roomId, String roomClass, Integer capacity, String status) {
+        Room room = roomRepository.findById(roomId).orElseThrow(() -> new IllegalArgumentException("Invalid room Id: " + roomId));
+        room.setRoomClass(roomClass);
+        room.setCapacity(capacity);
+        room.setStatus(status);
+        roomRepository.save(room);
     }
 }
