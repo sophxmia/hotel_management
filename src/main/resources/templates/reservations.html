@@ -53,8 +53,12 @@
             <td th:text="${r.room.roomClass}"></td>
             <td th:text="${r.startDate}"></td>
             <td th:text="${r.endDate}"></td>
-            <td><a class="btn btn-sm btn-outline-success"><i
-                    class="bi bi-pencil"></i></a></td>
+            <td><a th:href="@{/reservations/edit(reservation_id=${r.id})}" data-bs-target="#editConfirm"
+                   data-bs-toggle="modal"
+                   class="btn btn-sm btn-outline-success"
+                   th:attr="data-bs-text=${r.guest.firstName}, data-bs-id=${r.id}"><i
+                    class="bi bi-pencil"></i></a>
+            </td>
             <td>
                 <a class="btn btn-sm btn-outline-danger" data-bs-target="#myconfirm" data-bs-toggle="modal"
                    th:attr="data-bs-link=@{/reservations/delete(reservation_id=${r.id})}, data-bs-text=${r.guest.firstName}, data-bs-id=${r.id}"><i
@@ -83,6 +87,43 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="editConfirm" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="editReservationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editReservationLabel">Edit Reservation</h1>
+                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/reservations/edit" class="my-4">
+                    <input type="hidden" id="editReservationId" name="reservationId" value="">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input id="editStartDate" type="date" name="startDate" class="form-control"
+                                       placeholder="Start Date">
+                                <label for="editStartDate">Start Date</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input id="editEndDate" type="date" name="endDate" placeholder="End Date"
+                                       class="form-control">
+                                <label for="editEndDate">End Date</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-outline-success">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     let myConfirmDialog = document.getElementById('myconfirm')
     myConfirmDialog.addEventListener('show.bs.modal', function (event) {
@@ -97,6 +138,19 @@
         let course = document.getElementById('reservation-txt')
         course.textContent = text
     })
+</script>
+<script>
+    let editReservationModal = document.getElementById('editConfirm');
+    editReservationModal.addEventListener('show.bs.modal', function (event) {
+        let button = event.relatedTarget;
+        let rid = button.getAttribute('data-bs-id');
+        let startDate = button.getAttribute('data-start-date');
+        let endDate = button.getAttribute('data-end-date');
+
+        document.getElementById('editReservationId').value = rid;
+        document.getElementById('editStartDate').value = startDate;
+        document.getElementById('editEndDate').value = endDate;
+    });
 </script>
 <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.js}"></script>
 </body>

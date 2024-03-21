@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Controller
 @AllArgsConstructor
@@ -29,6 +31,13 @@ public class InvoiceController {
     @GetMapping("/delete")
     public String delete(@RequestParam(name = "invoice_id") int id) {
         invoiceService.delete(id);
+        return "redirect:/invoices";
+    }
+
+    @PostMapping("/edit")
+    public String edit(@RequestParam int invoiceId, @RequestParam BigDecimal amount,
+                       @RequestParam LocalDate issueDate) {
+        invoiceService.edit(invoiceId, amount, issueDate);
         return "redirect:/invoices";
     }
 

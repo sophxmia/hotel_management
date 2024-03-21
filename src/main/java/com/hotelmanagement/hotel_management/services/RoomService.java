@@ -1,6 +1,5 @@
 package com.hotelmanagement.hotel_management.services;
 
-import com.hotelmanagement.hotel_management.data.Guest;
 import com.hotelmanagement.hotel_management.data.Room;
 import com.hotelmanagement.hotel_management.repositories.RoomRepository;
 import lombok.AllArgsConstructor;
