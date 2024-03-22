@@ -2,6 +2,7 @@ package com.hotelmanagement.hotel_management.data;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "reservations")
 public class Reservation {
     @Id
@@ -35,4 +37,10 @@ public class Reservation {
     @OneToMany(mappedBy = "reservation")
     private Set<Invoice> invoices = new LinkedHashSet<>();
 
+    public Reservation(Guest guest, Room room, LocalDate startDate, LocalDate endDate) {
+        this.guest = guest;
+        this.room = room;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 }

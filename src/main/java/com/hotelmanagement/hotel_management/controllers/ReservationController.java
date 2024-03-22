@@ -2,7 +2,9 @@ package com.hotelmanagement.hotel_management.controllers;
 
 import com.hotelmanagement.hotel_management.data.Reservation;
 //import com.hotelmanagement.hotel_management.services.GuestService;
+import com.hotelmanagement.hotel_management.services.GuestService;
 import com.hotelmanagement.hotel_management.services.ReservationService;
+import com.hotelmanagement.hotel_management.services.RoomService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ import java.util.List;
 @RequestMapping("/reservations")
 public class ReservationController {
     private ReservationService reservationService;
+    private GuestService guestService;
+    private RoomService roomService;
 
     //    private GuestService guestService;
     @GetMapping("")
@@ -46,6 +50,19 @@ public class ReservationController {
     public String edit(@RequestParam int reservationId, @RequestParam LocalDate startDate,
                        @RequestParam LocalDate endDate) {
         reservationService.edit(reservationId, startDate, endDate);
+        return "redirect:/reservations";
+    }
+    @GetMapping("/add")
+    public String showAddForm(Model model) {
+        model.addAttribute("guests", guestService.getGuests());
+        model.addAttribute("rooms", roomService.getRooms());
+        return "add_reservation_form"; // Передаємо модель у форму для додавання резервації
+    }
+
+    @PostMapping("/add")
+    public String add(@RequestParam int guestId, @RequestParam int roomId,
+                      @RequestParam String startDate, @RequestParam String endDate) {
+        reservationService.add(guestId, roomId, startDate, endDate);
         return "redirect:/reservations";
     }
 }

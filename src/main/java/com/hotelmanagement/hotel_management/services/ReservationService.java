@@ -1,6 +1,8 @@
 package com.hotelmanagement.hotel_management.services;
 
 import com.hotelmanagement.hotel_management.data.Reservation;
+import com.hotelmanagement.hotel_management.data.Guest;
+import com.hotelmanagement.hotel_management.data.Room;
 import com.hotelmanagement.hotel_management.repositories.ReservationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 public class ReservationService {
     private ReservationRepository reservationRepository;
+    private GuestService guestService;
+    private RoomService roomService;
 
     public List<Reservation> getReservations() {
         return reservationRepository.findAll();
@@ -30,5 +34,27 @@ public class ReservationService {
         reservation.setStartDate(startDate);
         reservation.setEndDate(endDate);
         reservationRepository.save(reservation);
+    }
+
+    public void add(int guestId, int roomId, String startDateStr, String endDateStr) {
+        LocalDate startDate = LocalDate.parse(startDateStr);
+        LocalDate endDate = LocalDate.parse(endDateStr);
+
+        Guest guest = guestService.getGuestById(guestId);
+        Room room = roomService.getRoomById(roomId);
+
+        if (!isRoomAvailable(roomId)) {
+            throw new IllegalArgumentException("Room is not available for the specified dates.");
+        }
+
+        Reservation reservation = new Reservation(guest, room, startDate, endDate);
+
+        reservationRepository.save(reservation);
+    }
+
+    private boolean isRoomAvailable(int roomId) {
+        Room room = roomService.getRoomById(roomId);
+
+        return room.getStatus().equalsIgnoreCase("Vacant");
     }
 }

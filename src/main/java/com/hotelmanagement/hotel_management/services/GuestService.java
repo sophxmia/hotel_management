@@ -16,6 +16,11 @@ public class GuestService {
         return guestRepository.findAll();
     }
 
+    public Guest getGuestById(int id) {
+        return guestRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Guest with id " + id + " not found"));
+    }
+
     public void add(String firstName, String lastName, String passportInfo, String contactNumber) {
         guestRepository.save(new Guest(firstName, lastName, passportInfo, contactNumber));
     }

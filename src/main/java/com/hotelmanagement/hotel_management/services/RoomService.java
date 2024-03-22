@@ -16,6 +16,10 @@ public class RoomService {
         return roomRepository.findAll();
     }
 
+    public Room getRoomById(int id) {
+        return roomRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Room with id " + id + " not found"));
+    }
     public void add(String roomClass, Integer capacity, String status) {
         roomRepository.save(new Room(roomClass, capacity, status));
     }
