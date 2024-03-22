@@ -35,4 +35,7 @@ public class RoomService {
         room.setStatus(status);
         roomRepository.save(room);
     }
+    public void updateRoom(Room room) {
+        roomRepository.save(room);
+    }
 }

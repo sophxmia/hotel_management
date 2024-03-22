@@ -26,6 +26,13 @@ public class ReservationService {
     }
 
     public void delete(int id) {
+        Reservation reservation = reservationRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid reservation Id: " + id));
+
+        Room room = reservation.getRoom();
+        room.setStatus("Vacant");
+        roomService.updateRoom(room);
+
         reservationRepository.deleteById(id);
     }
 
@@ -48,7 +55,8 @@ public class ReservationService {
         }
 
         Reservation reservation = new Reservation(guest, room, startDate, endDate);
-
+        room.setStatus("Occupied");
+        roomService.updateRoom(room);
         reservationRepository.save(reservation);
     }
 
