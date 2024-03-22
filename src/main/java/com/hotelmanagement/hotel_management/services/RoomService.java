@@ -38,4 +38,8 @@ public class RoomService {
     public void updateRoom(Room room) {
         roomRepository.save(room);
     }
+    public List<Room> getVacantRooms() {
+        return roomRepository.findByStatusIgnoreCase("Vacant");
+    }
+
 }
