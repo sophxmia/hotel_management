@@ -1,7 +1,9 @@
 package com.hotelmanagement.hotel_management.data;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -10,6 +12,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "invoices")
 public class Invoice {
     @Id
@@ -26,5 +29,11 @@ public class Invoice {
 
     @Column(name = "issue_date")
     private LocalDate issueDate;
+
+    public Invoice(Reservation reservation, BigDecimal amount, LocalDate issueDate) {
+        this.reservation = reservation;
+        this.amount = amount;
+        this.issueDate = issueDate;
+    }
 
 }

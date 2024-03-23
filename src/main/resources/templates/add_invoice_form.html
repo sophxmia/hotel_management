@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Invoice</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/dist/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}">
+</head>
+<body>
+<div class="container-fluid">
+    <h2>Add Invoice</h2>
+    <form method="post" action="/invoices/add">
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label for="guestId">Select Guest:</label>
+                <select id="guestId" name="guestId" class="form-control">
+                    <option value="" disabled selected>Select Guest</option>
+                    <option th:each="guest : ${guests}" th:value="${guest.id}"
+                            th:text="${guest.firstName + ' ' + guest.lastName}"></option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="reservationId">Select Reservation:</label>
+                <select id="reservationId" name="reservationId" class="form-control">
+                    <option value="" disabled selected>Select Reservation</option>
+                    <option th:each="reservation : ${reservations}" th:value="${reservation.id}"
+                            th:text="${reservation.guest.firstName + ' ' + reservation.guest.lastName + ' - ' + reservation.room.roomClass}"></option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group">
+                <button type="submit" class="btn btn-primary my-2">Generate Invoice</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.js}"></script>
+</body>
+</html>

@@ -1,6 +1,8 @@
 package com.hotelmanagement.hotel_management.services;
 
+import com.hotelmanagement.hotel_management.data.Guest;
 import com.hotelmanagement.hotel_management.data.Invoice;
+import com.hotelmanagement.hotel_management.data.Reservation;
 import com.hotelmanagement.hotel_management.repositories.InvoiceRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 public class InvoiceService {
     private InvoiceRepository invoiceRepository;
+    private GuestService guestService;
+    private ReservationService reservationService;
 
     public List<Invoice> getInvoices() {
         return invoiceRepository.findAll();
@@ -22,6 +26,7 @@ public class InvoiceService {
         return invoiceRepository.findById(id).orElse(null);
     }
 
+
     public void delete(int id) {
         invoiceRepository.deleteById(id);
     }
@@ -30,6 +35,18 @@ public class InvoiceService {
         Invoice invoice = invoiceRepository.findById(invoiceId).orElseThrow(() -> new IllegalArgumentException("Invalid invoice Id: " + invoiceId));
         invoice.setAmount(amount);
         invoice.setIssueDate(issueDate);
+        invoiceRepository.save(invoice);
+    }
+
+    public void add(int guestId, int reservationId, BigDecimal amount, LocalDate issueDate) {
+        Guest guest = guestService.getGuestById(guestId);
+        Reservation reservation = reservationService.getReservationById(reservationId);
+
+        Invoice invoice = new Invoice();
+        invoice.setReservation(reservation);
+        invoice.setAmount(amount);
+        invoice.setIssueDate(issueDate);
+
         invoiceRepository.save(invoice);
     }
 }

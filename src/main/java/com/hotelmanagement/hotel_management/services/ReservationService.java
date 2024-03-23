@@ -21,6 +21,11 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
+    public Reservation getReservationById(int id) {
+        return reservationRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Reservation with id " + id + " not found"));
+    }
+
     public List<Reservation> getReservationsForGuest(int guestId) {
         return reservationRepository.findByGuest_Id(guestId);
     }
