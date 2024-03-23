@@ -38,8 +38,7 @@ public class InvoiceService {
         invoiceRepository.save(invoice);
     }
 
-    public void add(int guestId, int reservationId, BigDecimal amount, LocalDate issueDate) {
-        Guest guest = guestService.getGuestById(guestId);
+    public void add(int reservationId, BigDecimal amount, LocalDate issueDate) {
         Reservation reservation = reservationService.getReservationById(reservationId);
 
         Invoice invoice = new Invoice();

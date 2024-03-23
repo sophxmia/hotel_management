@@ -1,14 +1,17 @@
 package com.hotelmanagement.hotel_management.services;
 
+import com.hotelmanagement.hotel_management.data.Invoice;
 import com.hotelmanagement.hotel_management.data.Reservation;
 import com.hotelmanagement.hotel_management.data.Guest;
 import com.hotelmanagement.hotel_management.data.Room;
+import com.hotelmanagement.hotel_management.repositories.InvoiceRepository;
 import com.hotelmanagement.hotel_management.repositories.ReservationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -16,6 +19,7 @@ public class ReservationService {
     private ReservationRepository reservationRepository;
     private GuestService guestService;
     private RoomService roomService;
+    private InvoiceRepository invoiceRepository;
 
     public List<Reservation> getReservations() {
         return reservationRepository.findAll();
@@ -34,12 +38,23 @@ public class ReservationService {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid reservation Id: " + id));
 
+        // Отримуємо список інвойсів, пов'язаних з резервацією
+        Set<Invoice> invoices = reservation.getInvoices();
+
+        // Видаляємо кожен інвойс з бази даних
+        for (Invoice invoice : invoices) {
+            invoiceRepository.deleteById(invoice.getId());
+        }
+
+        // Отримуємо кімню, що відповідає цій резервації і оновлюємо її статус
         Room room = reservation.getRoom();
         room.setStatus("Vacant");
         roomService.updateRoom(room);
 
+        // Видаляємо резервацію
         reservationRepository.deleteById(id);
     }
+
 
     public void edit(int reservationId, LocalDate startDate, LocalDate endDate) {
         Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(() -> new IllegalArgumentException("Invalid reservation Id: " + reservationId));

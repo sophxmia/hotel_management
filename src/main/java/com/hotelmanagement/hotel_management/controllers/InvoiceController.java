@@ -55,10 +55,10 @@ public class InvoiceController {
     }
 
     @PostMapping("/add")
-    public String addInvoice(@RequestParam int guestId, @RequestParam int reservationId) {
+    public String addInvoice(@RequestParam int reservationId) {
         BigDecimal amount = calculateInvoiceAmount(reservationId);
         LocalDate issueDate = LocalDate.now();
-        invoiceService.add(guestId, reservationId, amount, issueDate);
+        invoiceService.add(reservationId, amount, issueDate);
         return "redirect:/invoices";
     }
 

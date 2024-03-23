@@ -22,7 +22,6 @@ public class ReservationController {
     private GuestService guestService;
     private RoomService roomService;
 
-    //    private GuestService guestService;
     @GetMapping("")
     public String findAll(Model model) {
         model.addAttribute("reservations", reservationService.getReservations());
@@ -52,6 +51,7 @@ public class ReservationController {
         reservationService.edit(reservationId, startDate, endDate);
         return "redirect:/reservations";
     }
+
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("guests", guestService.getGuests());
