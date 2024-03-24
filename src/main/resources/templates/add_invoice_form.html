@@ -8,6 +8,31 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}">
 </head>
 <body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/hotel">Hotel Management System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/guests">Guests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reservations">Reservations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/rooms">Rooms</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/invoices">Invoices</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <div class="container-fluid">
     <h2>Add Invoice</h2>
     <form method="post" action="/invoices/add">
@@ -33,6 +58,16 @@
             </div>
         </div>
     </form>
+    <nav aria-label="Page navigation example" class="my-3">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="/reservations">Previous</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="/guests">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.js}"></script>
 </body>
