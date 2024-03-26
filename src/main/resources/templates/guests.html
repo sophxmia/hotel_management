@@ -55,7 +55,7 @@
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                    <form method="post" action="/guests/add" class="my-4">
+                    <form method="post" action="/guests/add" class="my-4" onsubmit="return validateForm()">
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="form-floating">
@@ -209,6 +209,23 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="errorModalBody">
+                <!-- Повідомлення про помилку буде тут -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     let myConfirmDialog = document.getElementById('myconfirm')
     myConfirmDialog.addEventListener('show.bs.modal', function (event) {
@@ -244,8 +261,48 @@
         document.getElementById('editPassportInfo').value = passportInfo;
         document.getElementById('editContactNumber').value = contactNumber;
     });
-
 </script>
+<script>
+    function validateForm() {
+        let firstName = document.getElementById('firstName').value;
+        let lastName = document.getElementById('lastName').value;
+        let passportInfo = document.getElementById('passportInfo').value;
+        let contactNumber = document.getElementById('contactNumber').value;
+
+        // Перевірка для First Name та Last Name: тільки літери та "-"
+        let nameRegex = /^[A-Za-z-]+$/;
+        if (!nameRegex.test(firstName) || !nameRegex.test(lastName)) {
+            showErrorModal("First Name and Last Name should contain only letters and '-' for double names.");
+            return false;
+        }
+
+        // Перевірка для Passport Info: перші два знаки це літери, далі цифри, довжина 6 символів
+        let passportRegex = /^[A-Za-z]{2}\d{6}$/;
+        if (!passportRegex.test(passportInfo)) {
+            showErrorModal("Passport Info should start with two letters followed by six digits.");
+            return false;
+        }
+
+        // Перевірка для Contact Number: номер повинен починатись з + і далі мати 10 символів
+        let contactRegex = /^\+\d{10}$/;
+        if (!contactRegex.test(contactNumber)) {
+            showErrorModal("Contact Number should start with '+' and have 10 digits.");
+            return false;
+        }
+
+        // Якщо всі дані введено правильно, повернути true
+        return true;
+    }
+
+    function showErrorModal(message) {
+        // Відобразити модальне вікно з повідомленням про помилку
+        let errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+        let modalBody = document.getElementById('errorModalBody');
+        modalBody.innerHTML = message;
+        errorModal.show();
+    }
+</script>
+
 <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.js}"></script>
 </body>
 </html>
