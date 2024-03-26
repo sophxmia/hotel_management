@@ -31,10 +31,19 @@ public class GuestService {
 
     public void edit(int guestId, String firstName, String lastName, String passportInfo, String contactNumber) {
         Guest guest = guestRepository.findById(guestId).orElseThrow(() -> new IllegalArgumentException("Invalid guest Id: " + guestId));
-        guest.setFirstName(firstName);
-        guest.setLastName(lastName);
-        guest.setPassportInfo(passportInfo);
-        guest.setContactNumber(contactNumber);
+
+        if (firstName != null && !firstName.isEmpty()) {
+            guest.setFirstName(firstName);
+        }
+        if (lastName != null && !lastName.isEmpty()) {
+            guest.setLastName(lastName);
+        }
+        if (passportInfo != null && !passportInfo.isEmpty()) {
+            guest.setPassportInfo(passportInfo);
+        }
+        if (contactNumber != null && !contactNumber.isEmpty()) {
+            guest.setContactNumber(contactNumber);
+        }
         guestRepository.save(guest);
     }
 
