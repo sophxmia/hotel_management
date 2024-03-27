@@ -30,9 +30,16 @@ public class RoomService {
 
     public void edit(int roomId, String roomClass, Integer capacity, String status) {
         Room room = roomRepository.findById(roomId).orElseThrow(() -> new IllegalArgumentException("Invalid room Id: " + roomId));
-        room.setRoomClass(roomClass);
-        room.setCapacity(capacity);
-        room.setStatus(status);
+
+        if(roomClass != null && !roomClass.isEmpty()){
+            room.setRoomClass(roomClass);
+        }
+        if(capacity != null && capacity > 0){
+            room.setCapacity(capacity);
+        }
+        if(status != null && !status.isEmpty()) {
+            room.setStatus(status);
+        }
         roomRepository.save(room);
     }
     public void updateRoom(Room room) {

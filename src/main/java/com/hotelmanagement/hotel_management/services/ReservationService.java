@@ -38,28 +38,27 @@ public class ReservationService {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid reservation Id: " + id));
 
-        // Отримуємо список інвойсів, пов'язаних з резервацією
         Set<Invoice> invoices = reservation.getInvoices();
 
-        // Видаляємо кожен інвойс з бази даних
         for (Invoice invoice : invoices) {
             invoiceRepository.deleteById(invoice.getId());
         }
 
-        // Отримуємо кімнату, що відповідає цій резервації і оновлюємо її статус
         Room room = reservation.getRoom();
         room.setStatus("Vacant");
         roomService.updateRoom(room);
 
-        // Видаляємо резервацію
         reservationRepository.deleteById(id);
     }
 
-
     public void edit(int reservationId, LocalDate startDate, LocalDate endDate) {
         Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(() -> new IllegalArgumentException("Invalid reservation Id: " + reservationId));
-        reservation.setStartDate(startDate);
-        reservation.setEndDate(endDate);
+        if (startDate != null) {
+            reservation.setStartDate(startDate);
+        }
+        if (endDate != null) {
+            reservation.setEndDate(endDate);
+        }
         reservationRepository.save(reservation);
     }
 

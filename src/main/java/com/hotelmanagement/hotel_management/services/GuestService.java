@@ -1,6 +1,7 @@
 package com.hotelmanagement.hotel_management.services;
 
 import com.hotelmanagement.hotel_management.data.Guest;
+import com.hotelmanagement.hotel_management.data.Invoice;
 import com.hotelmanagement.hotel_management.data.Reservation;
 import com.hotelmanagement.hotel_management.data.Room;
 import com.hotelmanagement.hotel_management.repositories.GuestRepository;
@@ -37,19 +38,24 @@ public class GuestService {
         // Отримання всіх резервацій, які посилаються на гостя з вказаним ідентифікатором
         List<Reservation> reservations = reservationRepository.findByGuestId(id);
 
-        // Видалення всіх залежних резервацій
+        // Видалення всіх залежних резервацій та інвойсів
         for (Reservation reservation : reservations) {
-            invoiceRepository.deleteByReservationId(reservation.getId());
+            // Отримання всіх інвойсів, які посилаються на резервацію
+            List<Invoice> invoices = invoiceRepository.findByReservationId(reservation.getId());
+
+            // Видалення всіх інвойсів, які посилаються на резервацію
+            for (Invoice invoice : invoices) {
+                invoiceRepository.delete(invoice);
+            }
+
             Room room = reservation.getRoom();
             room.setStatus("Vacant");
             roomService.updateRoom(room);
             reservationRepository.delete(reservation);
         }
 
-        // Після видалення залежних записів можна видалити гостя
         guestRepository.deleteById(id);
     }
-
 
     public void edit(int guestId, String firstName, String lastName, String passportInfo, String contactNumber) {
         Guest guest = guestRepository.findById(guestId).orElseThrow(() -> new IllegalArgumentException("Invalid guest Id: " + guestId));

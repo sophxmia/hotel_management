@@ -35,7 +35,7 @@
 </nav>
 <div class="container-fluid my-3">
     <h2>Add Reservation</h2>
-    <form method="post" action="/reservations/add">
+    <form method="post" action="/reservations/add" onsubmit="return validateForm()">
         <div class="row">
             <div class="col-md-2 form-group">
                 <label for="guestId">Select Guest:</label>
@@ -75,6 +75,46 @@
         </ul>
     </nav>
 </div>
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="errorMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function validateForm() {
+        let startDate = document.getElementById('startDate').value;
+        let endDate = document.getElementById('endDate').value;
+
+        if (!startDate || !endDate) {
+            showErrorModal('Please fill in all fields.');
+            return false;
+        }
+
+        if (startDate > endDate) {
+            showErrorModal('End date cannot be before start date.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function showErrorModal(errorMessage) {
+        document.getElementById('errorMessage').innerText = errorMessage;
+        let errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+        errorModal.show();
+    }
+</script>
 <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.js}"></script>
 </body>
 </html>

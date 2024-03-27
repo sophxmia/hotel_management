@@ -34,7 +34,7 @@
     </div>
 </nav>
 <div class="container-fluid">
-    <form method="post" action="/rooms/add" class="my-4">
+    <form method="post" action="/rooms/add" class="my-4" onsubmit="return validateForm()">
         <div class="row">
             <div class="col-md-3">
                 <div class="form-floating">
@@ -123,7 +123,7 @@
                 <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="/rooms/edit" class="my-4">
+                <form method="post" action="/rooms/edit" class="my-4" onsubmit="return validateEditForm()">
                     <input type="hidden" id="editRoomId" name="roomId" value="">
                     <div class="row">
                         <div class="col-md-6">
@@ -161,6 +161,22 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="errorMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     let myConfirmDialog = document.getElementById('myconfirm')
     myConfirmDialog.addEventListener('show.bs.modal', function (event) {
@@ -184,15 +200,61 @@
         let text = button.getAttribute('data-bs-text');
         let modalTitle = editConfirmDialog.querySelector('.modal-title');
         modalTitle.textContent = 'Edit Room: ' + text;
+
         let roomClass = button.getAttribute('data-room-class');
         let capacity = button.getAttribute('data-capacity');
         let status = button.getAttribute('data-status');
 
         document.getElementById('editRoomId').value = rid;
+        document.getElementById('editRoomClass').setAttribute('data-room-class', roomClass);
+        document.getElementById('editCapacity').setAttribute('data-capacity', capacity);
+        document.getElementById('editStatus').setAttribute('data-status', status);
+
         document.getElementById('editRoomClass').value = roomClass;
         document.getElementById('editCapacity').value = capacity;
         document.getElementById('editStatus').value = status;
     });
+</script>
+<script>
+    function validateForm() {
+        let roomClass = document.getElementById('roomClass').value.trim();
+        let capacity = document.getElementById('capacity').value.trim();
+
+        if (roomClass === '' || capacity === '') {
+            showErrorModal('Please fill in all fields.');
+            return false;
+        }
+
+        if (isNaN(capacity) || capacity <= 0) {
+            showErrorModal('Capacity must be a positive number.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function validateEditForm() {
+        let editRoomClass = document.getElementById('editRoomClass').value.trim();
+        let editCapacity = document.getElementById('editCapacity').value.trim();
+
+        if (editRoomClass === '' || editCapacity === '') {
+            showErrorModal('Please fill in all fields.');
+            return false;
+        }
+
+        if (isNaN(editCapacity) || editCapacity <= 0) {
+            showErrorModal('Capacity must be a positive number.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function showErrorModal(errorMessage) {
+        document.getElementById('errorMessage').innerText = errorMessage;
+        let errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+        errorModal.show();
+    }
 </script>
 <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.js}"></script>
 </body>

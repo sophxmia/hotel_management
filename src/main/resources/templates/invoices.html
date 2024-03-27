@@ -103,7 +103,7 @@
                 <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="/invoices/edit" class="my-4">
+                <form method="post" action="/invoices/edit" class="my-4" onsubmit="return validateForm()">
                     <input type="hidden" id="editInvoiceId" name="invoiceId" value="">
                     <div class="row">
                         <div class="col-md-6">
@@ -126,6 +126,22 @@
                         <button type="submit" class="btn btn-outline-success">Save Changes</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="errorMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -157,6 +173,25 @@
         document.getElementById('editAmount').value = amount;
         document.getElementById('editIssueDate').value = issueDate;
     });
+</script>
+<script>
+    function validateForm() {
+        let amount = document.getElementById('editAmount').value;
+        let issueDate = document.getElementById('editIssueDate').value;
+
+        if (!amount || !issueDate) {
+            showErrorModal('Please fill in all fields.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function showErrorModal(errorMessage) {
+        document.getElementById('errorMessage').innerText = errorMessage;
+        let errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+        errorModal.show();
+    }
 </script>
 <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.js}"></script>
 </body>
