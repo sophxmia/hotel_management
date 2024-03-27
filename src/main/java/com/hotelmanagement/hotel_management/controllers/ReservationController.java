@@ -56,7 +56,7 @@ public class ReservationController {
     public String showAddForm(Model model) {
         model.addAttribute("guests", guestService.getGuests());
         model.addAttribute("rooms", roomService.getVacantRooms());
-        return "add_reservation_form"; // Передаємо модель у форму для додавання резервації
+        return "add_reservation_form";
     }
 
     @PostMapping("/add")
