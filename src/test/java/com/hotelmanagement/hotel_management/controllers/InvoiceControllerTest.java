@@ -1,25 +1,20 @@
 package com.hotelmanagement.hotel_management.controllers;
 
-import com.hotelmanagement.hotel_management.data.Invoice;
 import com.hotelmanagement.hotel_management.data.Reservation;
 import com.hotelmanagement.hotel_management.data.Room;
 import com.hotelmanagement.hotel_management.services.GuestService;
 import com.hotelmanagement.hotel_management.services.InvoiceService;
-import com.hotelmanagement.hotel_management.services.PdfGenerationService;
 import com.hotelmanagement.hotel_management.services.ReservationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.ui.Model;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -28,9 +23,6 @@ class InvoiceControllerTest {
 
     @Mock
     private InvoiceService invoiceService;
-
-    @Mock
-    private PdfGenerationService pdfGenerationService;
 
     @Mock
     private GuestService guestService;
