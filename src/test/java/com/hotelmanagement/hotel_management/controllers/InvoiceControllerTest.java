@@ -1,8 +1,8 @@
 package com.hotelmanagement.hotel_management.controllers;
 
-//import com.hotelmanagement.hotel_management.data.Invoice;
-//import com.hotelmanagement.hotel_management.data.Reservation;
-//import com.hotelmanagement.hotel_management.data.Room;
+import com.hotelmanagement.hotel_management.data.Invoice;
+import com.hotelmanagement.hotel_management.data.Reservation;
+import com.hotelmanagement.hotel_management.data.Room;
 import com.hotelmanagement.hotel_management.services.GuestService;
 import com.hotelmanagement.hotel_management.services.InvoiceService;
 import com.hotelmanagement.hotel_management.services.PdfGenerationService;
@@ -12,14 +12,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 
-//import java.io.IOException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-//import java.util.Objects;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -90,45 +90,19 @@ class InvoiceControllerTest {
         verify(reservationService, times(1)).getReservations();
     }
 
-//    @Test
-//    void addInvoice() {
-//        int reservationId = 1;
-//        Reservation reservation = new Reservation();
-//        when(reservationService.getReservationById(reservationId)).thenReturn(reservation);
-//        when(reservation.getRoom()).thenReturn(new Room());
-//        when(reservation.getRoom().getCapacity()).thenReturn(2);
-//
-//        String viewName = invoiceController.addInvoice(reservationId);
-//
-//        assertEquals("redirect:/invoices", viewName);
-//        verify(invoiceService, times(1)).add(eq(reservationId), any(BigDecimal.class), any(LocalDate.class));
-//    }
+    @Test
+    void calculateInvoiceAmount() {
+        int reservationId = 1;
+        Reservation reservation = new Reservation();
+        reservation.setStartDate(LocalDate.now());
+        reservation.setEndDate(LocalDate.now().plusDays(2));
+        Room room = new Room();
+        room.setCapacity(2);
+        reservation.setRoom(room);
+        when(reservationService.getReservationById(reservationId)).thenReturn(reservation);
 
-//    @Test
-//    void calculateInvoiceAmount() {
-//        Reservation reservation = new Reservation();
-//        reservation.setStartDate(LocalDate.now());
-//        reservation.setEndDate(LocalDate.now().plusDays(2));
-//        when(reservationService.getReservationById(anyInt())).thenReturn(reservation);
-//
-//        BigDecimal amount = invoiceController.calculateInvoiceAmount(1);
-//
-//        assertEquals(BigDecimal.valueOf(50), amount);
-//    }
+        BigDecimal amount = invoiceController.calculateInvoiceAmount(reservationId);
 
-//    @Test
-//    void generatePdf() throws IOException {
-//        int invoiceId = 1;
-//        Invoice invoice = new Invoice();
-//        when(invoiceService.getInvoiceById(invoiceId)).thenReturn(invoice);
-//        byte[] pdfBytes = new byte[10];
-//        when(pdfGenerationService.generateInvoicePdf(invoice)).thenReturn(pdfBytes);
-//
-//        ResponseEntity<byte[]> responseEntity = invoiceController.generatePdf(invoiceId);
-//
-//        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-//        assertEquals("application/pdf", Objects.requireNonNull(responseEntity.getHeaders().getContentType()).toString());
-//        assertEquals("inline; filename=invoice.pdf", responseEntity.getHeaders().getContentDisposition().toString());
-//        assertEquals(pdfBytes.length, Objects.requireNonNull(responseEntity.getBody()).length);
-//    }
+        assertEquals(BigDecimal.valueOf(200), amount);
+    }
 }

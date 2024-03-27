@@ -1,6 +1,7 @@
 package com.hotelmanagement.hotel_management.controllers;
 
 import com.hotelmanagement.hotel_management.data.Reservation;
+import com.hotelmanagement.hotel_management.services.InvoiceService;
 import com.hotelmanagement.hotel_management.services.GuestService;
 import com.hotelmanagement.hotel_management.services.ReservationService;
 import com.hotelmanagement.hotel_management.services.RoomService;
@@ -11,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
@@ -21,10 +23,12 @@ import static org.mockito.Mockito.*;
 class ReservationControllerTest {
     @Mock
     private ReservationService reservationService;
-
+    @Mock
+    private InvoiceController invoiceController;
     @Mock
     private GuestService guestService;
-
+    @Mock
+    private InvoiceService invoiceService;
     @Mock
     private RoomService roomService;
 
@@ -80,11 +84,16 @@ class ReservationControllerTest {
         int reservationId = 1;
         LocalDate startDate = LocalDate.now();
         LocalDate endDate = LocalDate.now().plusDays(1);
+        BigDecimal newAmount = BigDecimal.valueOf(100); // Example value
+
+        when(invoiceController.calculateInvoiceAmount(reservationId)).thenReturn(newAmount);
 
         String viewName = reservationController.edit(reservationId, startDate, endDate);
 
         assertEquals("redirect:/reservations", viewName);
         verify(reservationService, times(1)).edit(reservationId, startDate, endDate);
+        verify(invoiceController, times(1)).calculateInvoiceAmount(reservationId);
+        verify(invoiceService, times(1)).updateAmountForReservation(reservationId, newAmount);
     }
 
     @Test

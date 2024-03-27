@@ -23,15 +23,6 @@ class ReservationServiceTest {
     @Mock
     private ReservationRepository reservationRepository;
 
-//    @Mock
-//    private GuestService guestService;
-//
-//    @Mock
-//    private RoomService roomService;
-//
-//    @Mock
-//    private InvoiceRepository invoiceRepository;
-
     @InjectMocks
     private ReservationService reservationService;
 
@@ -73,22 +64,6 @@ class ReservationServiceTest {
         assertTrue(reservations.isEmpty());
     }
 
-//    @Test
-//    void delete() {
-//        int reservationId = 1;
-//        Reservation reservation = new Reservation();
-//        Room room = new Room();
-//        room.setStatus("Occupied");
-//        reservation.setRoom(room);
-//        when(reservationRepository.findById(reservationId)).thenReturn(Optional.of(reservation));
-//
-//        reservationService.delete(reservationId);
-//
-//        verify(invoiceRepository, times(1)).deleteById(anyInt());
-//        verify(reservationRepository, times(1)).deleteById(reservationId);
-//        assertEquals("Vacant", room.getStatus());
-//    }
-
     @Test
     void edit() {
         int reservationId = 1;
@@ -103,21 +78,4 @@ class ReservationServiceTest {
         assertEquals(endDate, reservation.getEndDate());
         verify(reservationRepository, times(1)).save(reservation);
     }
-
-//    @Test
-//    void add() {
-//        int guestId = 1;
-//        int roomId = 1;
-//        String startDateStr = "2024-03-30";
-//        String endDateStr = "2024-03-31";
-//        Guest guest = new Guest();
-//        Room room = new Room();
-//        when(guestService.getGuestById(guestId)).thenReturn(guest);
-//        when(roomService.getRoomById(roomId)).thenReturn(room);
-//
-//        reservationService.add(guestId, roomId, startDateStr, endDateStr);
-//
-//        verify(reservationRepository, times(1)).save(any(Reservation.class));
-//        assertEquals("Occupied", room.getStatus());
-//    }
 }
