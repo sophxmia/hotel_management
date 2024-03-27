@@ -16,23 +16,26 @@ public class RoomController {
     private RoomService roomService;
 
     @GetMapping("")
-    public String findAll(Model model){
+    public String findAll(Model model) {
         model.addAttribute("rooms", roomService.getRooms());
         return "rooms";
     }
+
     @PostMapping("/add")
-    public String add(@RequestParam String roomClass,@RequestParam Integer capacity,@RequestParam String status){
-        roomService.add(roomClass,capacity, status);
+    public String add(@RequestParam String roomClass, @RequestParam Integer capacity, @RequestParam String status) {
+        roomService.add(roomClass, capacity, status);
         return "redirect:/rooms";
     }
+
     @GetMapping("/delete")
-    public String delete(@RequestParam(name = "room_id") int id){
+    public String delete(@RequestParam(name = "room_id") int id) {
         roomService.delete(id);
         return "redirect:/rooms";
     }
+
     @PostMapping("/edit")
     public String edit(@RequestParam int roomId, @RequestParam String roomClass,
-                             @RequestParam Integer capacity, @RequestParam String status) {
+                       @RequestParam Integer capacity, @RequestParam String status) {
         roomService.edit(roomId, roomClass, capacity, status);
         return "redirect:/rooms";
     }

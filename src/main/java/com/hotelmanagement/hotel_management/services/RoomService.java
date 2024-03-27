@@ -20,6 +20,7 @@ public class RoomService {
         return roomRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Room with id " + id + " not found"));
     }
+
     public void add(String roomClass, Integer capacity, String status) {
         roomRepository.save(new Room(roomClass, capacity, status));
     }
@@ -32,25 +33,23 @@ public class RoomService {
         Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid room Id: " + roomId));
 
-        // Отримати поточні значення полів, якщо вони порожні
         String currentRoomClass = room.getRoomClass();
         Integer currentCapacity = room.getCapacity();
         String currentStatus = room.getStatus();
 
-        // Перевірка та збереження нових значень або збереження попередніх значень, якщо поля порожні
-        if(roomClass != null && !roomClass.isEmpty()){
+        if (roomClass != null && !roomClass.isEmpty()) {
             room.setRoomClass(roomClass);
         } else {
             room.setRoomClass(currentRoomClass);
         }
 
-        if(capacity != null && capacity > 0){
+        if (capacity != null && capacity > 0) {
             room.setCapacity(capacity);
         } else {
             room.setCapacity(currentCapacity);
         }
 
-        if(status != null && !status.isEmpty()) {
+        if (status != null && !status.isEmpty()) {
             room.setStatus(status);
         } else {
             room.setStatus(currentStatus);
@@ -62,6 +61,7 @@ public class RoomService {
     public void updateRoom(Room room) {
         roomRepository.save(room);
     }
+
     public List<Room> getVacantRooms() {
         return roomRepository.findByStatusIgnoreCase("Vacant");
     }

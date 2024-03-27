@@ -50,6 +50,7 @@ public class InvoiceService {
         }
         invoiceRepository.save(invoice);
     }
+
     public void updateAmountForReservation(int reservationId, BigDecimal newAmount) {
         Invoice invoice = invoiceRepository.findByReservation_Id(reservationId);
         if (invoice != null) {
@@ -57,6 +58,7 @@ public class InvoiceService {
             invoiceRepository.save(invoice);
         }
     }
+
     public void add(int reservationId, BigDecimal amount, LocalDate issueDate) {
         Reservation reservation = reservationService.getReservationById(reservationId);
 

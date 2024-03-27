@@ -57,7 +57,8 @@
             <td th:text="${r.startDate}"></td>
             <td th:text="${r.endDate}"></td>
             <td>
-                <a th:href="@{/invoices/by-reservation/{reservationId}(reservationId=${r.id})}" class="btn btn-sm btn-outline-info">
+                <a th:href="@{/invoices/by-reservation/{reservationId}(reservationId=${r.id})}"
+                   class="btn btn-sm btn-outline-info">
                     <i class="bi bi-file-earmark-pdf"></i>
                 </a>
             </td>

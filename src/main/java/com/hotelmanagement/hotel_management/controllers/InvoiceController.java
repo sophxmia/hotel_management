@@ -33,6 +33,7 @@ public class InvoiceController {
         model.addAttribute("invoices", invoiceService.getInvoices());
         return "invoices";
     }
+
     @GetMapping("/by-reservation/{reservationId}")
     public String showInvoiceForReservation(@PathVariable("reservationId") int reservationId, Model model) {
         Invoice invoice = invoiceService.getInvoiceByReservationId(reservationId);
