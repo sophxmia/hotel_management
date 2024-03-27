@@ -83,7 +83,8 @@
             <td th:text="${ro.capacity}"></td>
             <td th:text="${ro.status}"></td>
             <td><a th:href="@{/rooms/edit(room_id=${ro.id})}" data-bs-target="#editConfirm" data-bs-toggle="modal"
-                   class="btn btn-sm btn-outline-success" th:attr="data-bs-text=${ro.roomClass}, data-bs-id=${ro.id}"><i
+                   class="btn btn-sm btn-outline-success"
+                   th:attr="data-bs-text=${ro.roomClass}, data-bs-id=${ro.id}, data-room-class=${ro.roomClass}, data-capacity=${ro.capacity}, data-status=${ro.status}"><i
                     class="bi bi-pencil"></i></a>
             </td>
             <td>
@@ -206,21 +207,9 @@
         let status = button.getAttribute('data-status');
 
         document.getElementById('editRoomId').value = rid;
-        document.getElementById('editRoomClass').setAttribute('data-room-class', roomClass);
-        document.getElementById('editCapacity').setAttribute('data-capacity', capacity);
-        document.getElementById('editStatus').setAttribute('data-status', status);
         document.getElementById('editRoomClass').value = roomClass;
         document.getElementById('editCapacity').value = capacity;
-
-        let statusSelect = document.getElementById('editStatus');
-        if (status === 'Vacant' || status === 'Occupied') {
-            for (let i = 0; i < statusSelect.options.length; i++) {
-                if (statusSelect.options[i].value === status) {
-                    statusSelect.selectedIndex = i;
-                    break;
-                }
-            }
-        }
+        document.getElementById('editStatus').value = status;
     });
 </script>
 <script>
