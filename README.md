@@ -20,26 +20,29 @@ allocation, guest registration, check-in/check-out processes, and guest search f
 2. Set up the MySQL database according to the provided schema. 
 3. Compile and run the Java application. 
 4. Access the application via a web browser to interact with the user interface.
+5. Access the application in your browser at http://localhost:8080/hotel.
 
 ## Technologies Used
 
 * Java 
-* Spring Framework 
-* HTML 
-* CSS 
+* Spring Framework
 * MySQL
+* HTML5 
+* CSS3
+* Bootstrap 
 
-## Evaluation Criteria
 
-This project will be evaluated based on the following criteria:
+## Important Information about the project
 
-* Ensure the functionalities meet the requirements specified for a hotel administrator.
+This project has the following criteria:
+
+* Ensured the functionalities meet the requirements specified for a hotel administrator.
 * Properly set up the project with necessary libraries and frameworks.
-* Establish a clear and meaningful hierarchy of Java classes with proper variable and class naming conventions. Utilize
+* Established a clear and meaningful hierarchy of Java classes with proper variable and class naming conventions. Utilize
   design patterns where applicable.
-* Design a normalized database schema with appropriate relationships and foreign keys.
-* Include comments and explanations regarding the deployment and usage of the application.
-* Develop an intuitive and user-friendly interface for easy interaction with the system.
+* Designed a normalized database schema with appropriate relationships and foreign keys.
+* Includeed comments and explanations regarding the deployment and usage of the application.
+* Developed an intuitive and user-friendly interface for easy interaction with the system.
 
 ## Contributors
 
