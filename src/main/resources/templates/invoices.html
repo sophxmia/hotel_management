@@ -61,7 +61,7 @@
             <td th:text="${i.issueDate}"></td>
             <td><a th:href="@{/invoices/edit(invoice_id=${i.id})}" data-bs-target="#editConfirm" data-bs-toggle="modal"
                    class="btn btn-sm btn-outline-success"
-                   th:attr="data-bs-text=${i.reservation.guest.firstName}, data-bs-id=${i.id}"><i
+                   th:attr="data-bs-text=${i.reservation.guest.firstName}, data-bs-id=${i.id},data-amount=${i.amount}, data-issue-date=${i.issueDate}"><i
                     class="bi bi-pencil"></i></a>
             </td>
             <td>
@@ -166,6 +166,10 @@
     editInvoiceModal.addEventListener('show.bs.modal', function (event) {
         let button = event.relatedTarget;
         let rid = button.getAttribute('data-bs-id');
+        let text = button.getAttribute('data-bs-text');
+        let modalTitle = editInvoiceModal.querySelector('.modal-title');
+        modalTitle.textContent = 'Edit Invoice: ' + text;
+
         let amount = button.getAttribute('data-amount');
         let issueDate = button.getAttribute('data-issue-date');
 
@@ -179,11 +183,10 @@
         let amount = document.getElementById('editAmount').value;
         let issueDate = document.getElementById('editIssueDate').value;
 
-        if (!amount || !issueDate) {
+        if (!amount.trim() || !issueDate.trim()) { // Змінено тут
             showErrorModal('Please fill in all fields.');
             return false;
         }
-
         return true;
     }
 

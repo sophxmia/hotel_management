@@ -125,7 +125,7 @@
             </td>
             <td><a th:href="@{/guests/edit(guest_id=${g.id})}" data-bs-target="#editConfirm" data-bs-toggle="modal"
                    class="btn btn-sm btn-outline-success"
-                   th:attr="data-bs-text=${g.firstName + ' ' + g.lastName}, data-bs-id=${g.id}"><i
+                   th:attr="data-bs-text=${g.firstName + ' ' + g.lastName}, data-bs-id=${g.id},data-first-name = ${g.firstName}, data-last-name= ${g.lastName}, data-passport-info= ${g.passportInfo}, data-contact-number= ${g.contactNumber}"><i
                     class="bi bi-pencil"></i></a></td>
             <td>
                 <a class="btn btn-sm btn-outline-danger" data-bs-target="#myconfirm" data-bs-toggle="modal"
@@ -253,14 +253,7 @@
         let passportInfo = button.getAttribute('data-passport-info');
         let contactNumber = button.getAttribute('data-contact-number');
 
-        // Встановлення значень атрибутів data-* для форми редагування
         document.getElementById('editGuestId').value = gid;
-        document.getElementById('editFirstName').setAttribute('data-first-name', firstName);
-        document.getElementById('editLastName').setAttribute('data-last-name', lastName);
-        document.getElementById('editPassportInfo').setAttribute('data-passport-info', passportInfo);
-        document.getElementById('editContactNumber').setAttribute('data-contact-number', contactNumber);
-
-        // Заповнення полів вводу даними гостя
         document.getElementById('editFirstName').value = firstName;
         document.getElementById('editLastName').value = lastName;
         document.getElementById('editPassportInfo').value = passportInfo;

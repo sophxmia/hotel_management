@@ -31,11 +31,19 @@ public class InvoiceService {
 
     public void edit(int invoiceId, BigDecimal amount, LocalDate issueDate) {
         Invoice invoice = invoiceRepository.findById(invoiceId).orElseThrow(() -> new IllegalArgumentException("Invalid invoice Id: " + invoiceId));
+
+        BigDecimal currentAmount = invoice.getAmount();
+        LocalDate currentIssueDate = invoice.getIssueDate();
+
         if (amount != null) {
             invoice.setAmount(amount);
+        } else {
+            invoice.setAmount(currentAmount);
         }
         if (issueDate != null) {
             invoice.setIssueDate(issueDate);
+        } else {
+            invoice.setIssueDate(currentIssueDate);
         }
         invoiceRepository.save(invoice);
     }
