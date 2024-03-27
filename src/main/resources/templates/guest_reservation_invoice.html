@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Guest's Reservations</title>
+    <title>Guest's Reservations' Invoices</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/dist/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}">
 </head>
@@ -34,38 +34,33 @@
     </div>
 </nav>
 <div class="container-fluid mt-4">
-    <h1 th:if="${#lists.isEmpty(reservations)}">
-        No reservations found
+    <h1 th:if="${#lists.isEmpty(invoices)}">
+        No invoices found
     </h1>
-    <h1 th:unless="${#lists.isEmpty(reservations)}">
-        Reservations
+    <h1 th:unless="${#lists.isEmpty(invoices)}">
+        Invoices
     </h1>
     <table class="table table-sm type-striped table-bordered table-hover">
         <thead class="table-header table-info">
         <tr>
             <th>#</th>
-            <th>Room</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Invoice</th>
+            <th>Reservation Name</th>
+            <th>Reservation Room</th>
+            <th>Amount</th>
+            <th>Issue Date</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="r: ${reservations}">
-            <td th:text="${r.id}"></td>
-            <td th:text="${r.room.roomClass}"></td>
-            <td th:text="${r.startDate}"></td>
-            <td th:text="${r.endDate}"></td>
-            <td>
-                <a th:href="@{/invoices/by-reservation/{reservationId}(reservationId=${r.id})}" class="btn btn-sm btn-outline-info">
-                    <i class="bi bi-file-earmark-pdf"></i>
-                </a>
-            </td>
-
+        <tr th:each="i: ${invoices}">
+            <td th:text="${i.id}"></td>
+            <td th:text="${i.reservation.guest.firstName}"></td>
+            <td th:text="${i.reservation.room.roomClass}"></td>
+            <td th:text="${i.amount}"></td>
+            <td th:text="${i.issueDate}"></td>
         </tr>
         </tbody>
     </table>
-    <nav aria-label="Page navigation example">
+    <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             <li class="page-item">
                 <a class="page-link" href="/guests">Previous</a>

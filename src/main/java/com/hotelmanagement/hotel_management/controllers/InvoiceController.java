@@ -33,6 +33,12 @@ public class InvoiceController {
         model.addAttribute("invoices", invoiceService.getInvoices());
         return "invoices";
     }
+    @GetMapping("/by-reservation/{reservationId}")
+    public String showInvoiceForReservation(@PathVariable("reservationId") int reservationId, Model model) {
+        Invoice invoice = invoiceService.getInvoiceByReservationId(reservationId);
+        model.addAttribute("invoices", invoice);
+        return "guest_reservation_invoice";
+    }
 
     @GetMapping("/delete")
     public String delete(@RequestParam(name = "invoice_id") int id) {

@@ -24,6 +24,9 @@ public class InvoiceService {
         return invoiceRepository.findById(id).orElse(null);
     }
 
+    public Invoice getInvoiceByReservationId(int reservationId) {
+        return invoiceRepository.findByReservationId(reservationId);
+    }
 
     public void delete(int id) {
         invoiceRepository.deleteById(id);
