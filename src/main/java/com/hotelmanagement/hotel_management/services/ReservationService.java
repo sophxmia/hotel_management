@@ -46,7 +46,7 @@ public class ReservationService {
             invoiceRepository.deleteById(invoice.getId());
         }
 
-        // Отримуємо кімню, що відповідає цій резервації і оновлюємо її статус
+        // Отримуємо кімнату, що відповідає цій резервації і оновлюємо її статус
         Room room = reservation.getRoom();
         room.setStatus("Vacant");
         roomService.updateRoom(room);

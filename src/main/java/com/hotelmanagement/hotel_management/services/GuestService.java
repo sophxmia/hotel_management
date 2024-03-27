@@ -1,7 +1,11 @@
 package com.hotelmanagement.hotel_management.services;
 
 import com.hotelmanagement.hotel_management.data.Guest;
+import com.hotelmanagement.hotel_management.data.Reservation;
+import com.hotelmanagement.hotel_management.data.Room;
 import com.hotelmanagement.hotel_management.repositories.GuestRepository;
+import com.hotelmanagement.hotel_management.repositories.InvoiceRepository;
+import com.hotelmanagement.hotel_management.repositories.ReservationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +15,10 @@ import java.util.List;
 @AllArgsConstructor
 public class GuestService {
     private GuestRepository guestRepository;
+    private InvoiceRepository invoiceRepository;
+    private ReservationRepository reservationRepository;
+    private RoomService roomService;
+
 
     public List<Guest> getGuests() {
         return guestRepository.findAll();
@@ -26,8 +34,22 @@ public class GuestService {
     }
 
     public void delete(int id) {
+        // Отримання всіх резервацій, які посилаються на гостя з вказаним ідентифікатором
+        List<Reservation> reservations = reservationRepository.findByGuestId(id);
+
+        // Видалення всіх залежних резервацій
+        for (Reservation reservation : reservations) {
+            invoiceRepository.deleteByReservationId(reservation.getId());
+            Room room = reservation.getRoom();
+            room.setStatus("Vacant");
+            roomService.updateRoom(room);
+            reservationRepository.delete(reservation);
+        }
+
+        // Після видалення залежних записів можна видалити гостя
         guestRepository.deleteById(id);
     }
+
 
     public void edit(int guestId, String firstName, String lastName, String passportInfo, String contactNumber) {
         Guest guest = guestRepository.findById(guestId).orElseThrow(() -> new IllegalArgumentException("Invalid guest Id: " + guestId));
