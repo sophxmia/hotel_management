@@ -209,10 +209,18 @@
         document.getElementById('editRoomClass').setAttribute('data-room-class', roomClass);
         document.getElementById('editCapacity').setAttribute('data-capacity', capacity);
         document.getElementById('editStatus').setAttribute('data-status', status);
-
         document.getElementById('editRoomClass').value = roomClass;
         document.getElementById('editCapacity').value = capacity;
-        document.getElementById('editStatus').value = status;
+
+        let statusSelect = document.getElementById('editStatus');
+        if (status === 'Vacant' || status === 'Occupied') {
+            for (let i = 0; i < statusSelect.options.length; i++) {
+                if (statusSelect.options[i].value === status) {
+                    statusSelect.selectedIndex = i;
+                    break;
+                }
+            }
+        }
     });
 </script>
 <script>
@@ -234,15 +242,9 @@
     }
 
     function validateEditForm() {
-        let editRoomClass = document.getElementById('editRoomClass').value.trim();
         let editCapacity = document.getElementById('editCapacity').value.trim();
 
-        if (editRoomClass === '' || editCapacity === '') {
-            showErrorModal('Please fill in all fields.');
-            return false;
-        }
-
-        if (isNaN(editCapacity) || editCapacity <= 0) {
+        if (editCapacity <= 0) {
             showErrorModal('Capacity must be a positive number.');
             return false;
         }
