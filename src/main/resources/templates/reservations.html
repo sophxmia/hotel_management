@@ -54,11 +54,17 @@
             <td th:text="${r.room.roomClass}"></td>
             <td th:text="${r.startDate}"></td>
             <td th:text="${r.endDate}"></td>
-            <td><a th:href="@{/reservations/edit(reservation_id=${r.id})}" data-bs-target="#editConfirm"
+            <td><a th:href="@{/reservations/edit(reservation_id=${r.id})}"
+                   data-bs-target="#editConfirm"
                    data-bs-toggle="modal"
                    class="btn btn-sm btn-outline-success"
-                   th:attr="data-bs-text=${r.guest.firstName}, data-bs-id=${r.id}"><i
-                    class="bi bi-pencil"></i></a>
+                   th:attr="data-bs-text=${r.guest.firstName},
+                    data-bs-id=${r.id},
+                    data-start-date=${r.startDate},
+                    data-end-date=${r.endDate}">
+                <i class="bi bi-pencil"></i>
+            </a>
+
             </td>
             <td>
                 <a class="btn btn-sm btn-outline-danger" data-bs-target="#myconfirm" data-bs-toggle="modal"
@@ -163,11 +169,26 @@
         let startDate = button.getAttribute('data-start-date');
         let endDate = button.getAttribute('data-end-date');
 
+        let formattedStartDate = formatDate(startDate);
+        let formattedEndDate = formatDate(endDate);
+
         document.getElementById('editReservationId').value = rid;
-        document.getElementById('editStartDate').value = startDate;
-        document.getElementById('editEndDate').value = endDate;
+        document.getElementById('editStartDate').value = formattedStartDate;
+        document.getElementById('editEndDate').value = formattedEndDate;
     });
+
+    function formatDate(date) {
+        let formattedDate = new Date(date);
+
+        let year = formattedDate.getFullYear();
+        let month = (formattedDate.getMonth() + 1).toString().padStart(2, '0');
+        let day = formattedDate.getDate().toString().padStart(2, '0');
+
+
+        return `${year}-${month}-${day}`;
+    }
 </script>
+
 <script>
     function validateForm() {
         let startDate = document.getElementById('editStartDate').value;

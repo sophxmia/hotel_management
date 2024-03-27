@@ -53,11 +53,19 @@ public class ReservationService {
 
     public void edit(int reservationId, LocalDate startDate, LocalDate endDate) {
         Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(() -> new IllegalArgumentException("Invalid reservation Id: " + reservationId));
+
+        LocalDate currentStartDate = reservation.getStartDate();
+        LocalDate currentEndDate = reservation.getEndDate();
+
         if (startDate != null) {
             reservation.setStartDate(startDate);
+        } else {
+            reservation.setStartDate(currentStartDate);
         }
         if (endDate != null) {
             reservation.setEndDate(endDate);
+        } else {
+            reservation.setStartDate(currentEndDate);
         }
         reservationRepository.save(reservation);
     }
