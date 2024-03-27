@@ -3,6 +3,7 @@ package com.hotelmanagement.hotel_management.controllers;
 import com.hotelmanagement.hotel_management.data.Reservation;
 //import com.hotelmanagement.hotel_management.services.GuestService;
 import com.hotelmanagement.hotel_management.services.GuestService;
+import com.hotelmanagement.hotel_management.services.InvoiceService;
 import com.hotelmanagement.hotel_management.services.ReservationService;
 import com.hotelmanagement.hotel_management.services.RoomService;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +23,8 @@ public class ReservationController {
     private ReservationService reservationService;
     private GuestService guestService;
     private RoomService roomService;
+    private InvoiceController invoiceController;
+    private InvoiceService invoiceService;
 
     @GetMapping("")
     public String findAll(Model model) {
@@ -49,6 +53,10 @@ public class ReservationController {
     public String edit(@RequestParam int reservationId, @RequestParam LocalDate startDate,
                        @RequestParam LocalDate endDate) {
         reservationService.edit(reservationId, startDate, endDate);
+        BigDecimal newAmount = invoiceController.calculateInvoiceAmount(reservationId);
+
+        // Оновлення суми рахунку після зміни дати резервації
+        invoiceService.updateAmountForReservation(reservationId, newAmount);
         return "redirect:/reservations";
     }
 

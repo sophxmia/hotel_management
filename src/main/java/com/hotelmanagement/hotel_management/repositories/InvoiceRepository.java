@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
     List<Invoice> findByReservationId(Integer id);
+
+    Invoice findByReservation_Id(int reservationId);
 }
