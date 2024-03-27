@@ -14,7 +14,9 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-
+/**
+ * Service test class to handle operations related to rooms.
+ */
 class RoomServiceTest {
     @Mock
     private RoomRepository roomRepository;

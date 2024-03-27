@@ -15,6 +15,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Controller test class to handle operations related to guest management.
+ */
 class GuestControllerTest {
 
     @Mock

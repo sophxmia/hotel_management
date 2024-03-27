@@ -19,6 +19,9 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/**
+ * Controller test class to handle operations related to invoice management.
+ */
 class InvoiceControllerTest {
 
     @Mock

@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Controller class to handle operations related to hotel management.
+ */
 
 @Controller
 @AllArgsConstructor
@@ -21,6 +24,12 @@ public class HotelController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    /**
+     * Retrieves guests, their reservations, and invoices from the database and displays them.
+     *
+     * @param model The model to add attributes to for rendering the view.
+     * @return The name of the view template to render.
+     */
     @GetMapping("")
     public String getGuestsReservationsAndInvoices(Model model) {
         String sql = "SELECT " +
@@ -38,6 +47,13 @@ public class HotelController {
         return "hotel";
     }
 
+    /**
+     * Searches for guests, reservations, and invoices based on the provided search query.
+     *
+     * @param searchQuery The search query.
+     * @param model       The model to add attributes to for rendering the view.
+     * @return The name of the view template to render.
+     */
     @GetMapping("/search")
     public String searchGuest(@RequestParam("searchQuery") String searchQuery, Model model) {
         String sqlSearch = "SELECT " +

@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Controller test class to handle operations related to reservation management.
+ */
 class ReservationControllerTest {
     @Mock
     private ReservationService reservationService;

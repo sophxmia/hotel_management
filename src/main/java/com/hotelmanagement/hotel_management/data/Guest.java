@@ -8,6 +8,9 @@ import lombok.Setter;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/**
+ * Represents a guest staying in the hotel.
+ */
 @Getter
 @Setter
 @Entity
@@ -30,10 +33,20 @@ public class Guest {
 
     @Column(name = "contact_number", length = 20)
     private String contactNumber;
-
+    /**
+     * The set of reservations made by this guest.
+     */
     @OneToMany(mappedBy = "guest")
     private Set<Reservation> reservations = new LinkedHashSet<>();
 
+    /**
+     * Constructs a new guest with the specified details.
+     *
+     * @param firstName     The first name of the guest.
+     * @param lastName      The last name of the guest.
+     * @param passportInfo  The passport information of the guest.
+     * @param contactNumber The contact number of the guest.
+     */
     public Guest(String firstName, String lastName, String passportInfo, String contactNumber) {
         this.firstName = firstName;
         this.lastName = lastName;

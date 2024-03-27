@@ -13,6 +13,9 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Service test class to handle operations related to invoice pdf generation.
+ */
 class PdfGenerationServiceTest {
 
     @Test

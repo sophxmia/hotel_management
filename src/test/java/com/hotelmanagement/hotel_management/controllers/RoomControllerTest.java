@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/**
+ * Controller test class to handle operations related to room management.
+ */
 class RoomControllerTest {
     @Mock
     private RoomService roomService;

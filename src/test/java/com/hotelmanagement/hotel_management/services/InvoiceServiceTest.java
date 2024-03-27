@@ -17,6 +17,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Service test class to handle operations related to invoices.
+ */
 class InvoiceServiceTest {
 
     @Mock

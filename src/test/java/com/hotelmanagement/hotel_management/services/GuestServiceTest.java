@@ -15,6 +15,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/**
+ * Service test class to handle operations related to guests.
+ */
 class GuestServiceTest {
 
     @Mock
@@ -62,15 +65,6 @@ class GuestServiceTest {
 
         verify(guestRepository, times(1)).save(any(Guest.class));
     }
-
-//    @Test
-//    void delete() {
-//        int guestId = 1;
-//
-//        guestService.delete(guestId);
-//
-//        verify(guestRepository, times(1)).deleteById(guestId);
-//    }
 
     @Test
     void edit() {

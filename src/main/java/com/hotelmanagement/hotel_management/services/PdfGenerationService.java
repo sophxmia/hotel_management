@@ -12,10 +12,19 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import lombok.AllArgsConstructor;
 
+/**
+ * Service class to generate PDF documents for invoices.
+ */
 @Service
 @AllArgsConstructor
 public class PdfGenerationService {
-
+    /**
+     * Generates a PDF document for the provided invoice.
+     *
+     * @param invoice The invoice for which to generate the PDF.
+     * @return Byte array representing the generated PDF document.
+     * @throws IOException If an I/O error occurs while generating the PDF.
+     */
     public byte[] generateInvoicePdf(Invoice invoice) throws IOException {
         try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage();

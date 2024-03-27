@@ -1,6 +1,5 @@
 package com.hotelmanagement.hotel_management.services;
 
-//import com.hotelmanagement.hotel_management.data.Guest;
 import com.hotelmanagement.hotel_management.data.Reservation;
 //import com.hotelmanagement.hotel_management.data.Room;
 import com.hotelmanagement.hotel_management.repositories.InvoiceRepository;
@@ -17,7 +16,9 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
+/**
+ * Service test class to handle operations related to reservations.
+ */
 class ReservationServiceTest {
 
     @Mock

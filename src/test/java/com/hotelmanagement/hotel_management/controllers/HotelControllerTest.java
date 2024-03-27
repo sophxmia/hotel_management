@@ -16,6 +16,9 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/**
+ * Controller test class to handle operations related to hotel management.
+ */
 class HotelControllerTest {
 
     @Mock
@@ -28,6 +31,7 @@ class HotelControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
+
     @Test
     void getGuestsReservationsAndInvoices() {
         Model model = mock(Model.class);
