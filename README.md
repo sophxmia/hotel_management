@@ -14,22 +14,28 @@ allocation, guest registration, check-in/check-out processes, and guest search f
 * Early Departure: Allow guests to check out earlier than planned with reevaluation of charges.
 * Guest Search: Easily find guests based on various criteria.
 
-## Installation
+## Installation and Setup
 
-1. Clone the repository to your local machine. 
-2. Set up the MySQL database according to the provided schema. 
-3. Compile and run the Java application. 
-4. Access the application via a web browser to interact with the user interface.
-5. Access the application in your browser at http://localhost:8080/hotel.
+1. Clone the repository from GitHub using the command: git clone https://github.com/sophxmia/hotel_management.git .
+2. Download and install JDK and Maven on your computer.
+3. Start your MySQL database and create a database named hotel_management.
+4. In the application.yml file located in the src/main/resources directory, modify the parameters to connect to your database.
+5. Run the application using the command mvn spring-boot:run.
+6. Open the following URL in your browser: http://localhost:8080/hotel.
 
 ## Technologies Used
 
 * Java 
 * Spring Framework
+* Spring Boot
+* Spring MVC
+* Thymeleaf
+* Spring Data JPA
+* Maven
 * MySQL
 * HTML5 
 * CSS3
-* Bootstrap 
+* Bootstrap
 
 
 ## Important Information about the project
@@ -44,6 +50,16 @@ This project has the following criteria:
 * Includeed comments and explanations regarding the deployment and usage of the application.
 * Developed an intuitive and user-friendly interface for easy interaction with the system.
 
-## Contributors
+## Developer Documentation
+1. Clone the repository to your local machine using the command git clone https://github.com/sophxmia/hotel_management.git.
+2. Create a new branch for your changes using the command git checkout -b feature/new-feature.
+3. Develop and make necessary changes to the source code.
+4. Save your changes using the commands git add . to stage the changes and git commit -m "Description of changes" to commit the changes.
+5. Upload your changes to GitHub using the command git push origin feature/new-feature.
+6. Create a new pull request on GitHub with your branch of changes into the main branch of the project.
+7. Review your changes, resolve any conflicts, and merge any incoming changes that occurred during the review of your pull request.
+8. After your pull request is approved and all conflicts are resolved, your code will be merged into the main branch of the project.
+
+## Author
 
 Sofiia Maliarenko
